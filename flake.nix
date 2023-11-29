@@ -25,7 +25,7 @@
 
       release = {
         path = ./release;
-        description = "A Mix release template using `mixRelease`";
+        description = "A template to build Mix releases.";
         welcomeText = ''
           ## Success!
           You just imported a flake template for an Elixir project built with Mix.
@@ -41,7 +41,7 @@
 
       library = {
         path = ./library;
-        description = "A template to compile Mix projects";
+        description = "A template to compile Mix projects.";
         welcomeText = ''
           ## Success!
           You just imported a flake template for an Elixir project built with Mix.
@@ -58,7 +58,7 @@
 
       release-rust = {
         path = ./release-rust;
-        description = "A template to build Mix releases for Elixir + Rust projects";
+        description = "A template to build Mix releases for Elixir + Rust projects.";
         welcomeText = ''
           ## Success!
           You just imported a flake template for an Elixir + Rust project.
@@ -75,7 +75,7 @@
 
       library-rust = {
         path = ./library-rust;
-        description = "A template to compile Mix projects for Elixir + Rust";
+        description = "A template to compile Mix projects for Elixir + Rust projects.";
         welcomeText = ''
           ## Success!
           You just imported a flake template for an Elixir + Rust project.
@@ -92,7 +92,7 @@
 
       phoenix = {
         path = ./phoenix;
-        description = "A Mix release template for the Phoenix web framework using `mixRelease`";
+        description = "A template to build Mix releases for Phoenix applications.";
         welcomeText = ''
           ## Success!
           You just imported a flake template for a Phoenix project.
