@@ -16,8 +16,8 @@ As a solution, Nix gives us:
 - declarative development environments
 - declarative build recipes for Mix releases and libraries, with or without Rust
 - Nix handles building the Rust package in isolation, and provides the binary to the `mix release` step
+- Nix is already used by some projects doing Rust + Elixir
 - pinned versions and checksums gives us security and repeatability
-- functional syntax
 - user could modify templates without too much trouble
 - "just works", one-command developer onboarding (`nix develop`, `nix build`)
 
@@ -25,7 +25,7 @@ Hence these templates.
 
 ## Usage
 
-Importing a template with `nix flake init -t` is part the Nix flake CLI, so you must have flakes enabled.
+Importing a template with `nix flake init -t` is part the Nix flake CLI, so you must have flakes [enabled](./enable-flakes.md).
 
 This repo's flake exposes several templates. For example, to import the `shell` template, run:
 ```bash
