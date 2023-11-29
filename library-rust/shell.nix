@@ -12,7 +12,7 @@ with pkgs; let
   buildInputs =
     let
       inherit beamPackages;
-      elixir = beamPackages.elixir_1_14;
+      elixir = beamPackages.elixir;
       elixir_ls = beamPackages.elixir-ls.override { inherit elixir; };
       hex = beamPackages.hex;
     in

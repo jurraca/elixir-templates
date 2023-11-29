@@ -1,6 +1,8 @@
 {
+  description = "(a description of your package goes here)";
+
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/nixpkgs-unstable;
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-23.11;
     flake-utils.url = github:numtide/flake-utils;
     rust-overlay.url = github:oxalica/rust-overlay;
   };
@@ -10,11 +12,13 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         overlays = [ (import rust-overlay) ];
-        # declare pkgs for the specific target system we're building for, with the rust overlay
+        # declare pkgs for the specific target system we're building for, with the rust overlay.
         pkgs = import nixpkgs { inherit system overlays; };
-        # declare beam specific packages: this allows us to set the elixir/OTP versions and make sure they work together
-        beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlangR24;
-        # import a development shell we'll declare in nix/shell.nix
+        # declare OTP version via `erlang` attribute. If not, defaults to the latest on this channel.
+        beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlang;
+        # declare the Elixir version you want to use. If not, defaults to the latest on this channel.
+        elixir = beamPackages.elixir;
+        # import a development shell we'll declare in `shell.nix`.
         devShell = import ./shell.nix { inherit pkgs beamPackages; };
 
         # Build the rust package
@@ -31,16 +35,16 @@
 
         my-elixir-app = let
             lib = pkgs.lib;
-            # Import the mix deps which were nix-ified by running
-            # mix2nix > nix/deps.nix
+            # Import the Mix deps into Nix by running
+            # mix2nix > deps.nix
             mixNixDeps = import ./deps.nix { inherit lib beamPackages; };
           in beamPackages.buildMix {
-            name = "k256";
-            # Elixir app src path
+            name = "";
+            # Elixir app source path
             src = ./.;
             version = "0.1.0";
             # Add inputs to the build if you need to
-            buildInputs = [ beamPackages.elixir_1_14 ];
+            buildInputs = [ elixir ];
             # Declare the nix paths of the mix dependencies
             beamDeps = builtins.attrValues mixNixDeps;
 

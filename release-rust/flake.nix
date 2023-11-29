@@ -1,4 +1,6 @@
 {
+  description = "(a description of your package goes here)";
+
   inputs = {
     nixpkgs.url = github:NixOS/nixpkgs/nixpkgs-23.11;
     flake-utils.url = github:numtide/flake-utils;
@@ -12,13 +14,13 @@
         # After evaluating the nixpkgs set, we'll overlay the rust toolchain
         # provided by the "rust-overlay" flake input and use that.
         overlays = [ (import rust-overlay) ];
-        # declare pkgs for the specific target system we're building for, with the overlay
+        # Declare pkgs for the specific target system we're building for, with the overlay.
         pkgs = import nixpkgs { inherit system overlays; };
-        # declare beam version we want to use
-        beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlangR24;
-        # declare the Elixir version you want to use (or else it will default to the latest on this nixpkgs version)
-        elixir = beamPackages.elixir_1_14;
-        # import a development shell we'll declare in nix/shell.nix
+        # Declare BEAM version we want to use. If not, defaults to the latest on this channel.
+        beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlang;
+        # Declare the Elixir version you want to use. If not, defaults to the latest on this channel.
+        elixir = beamPackages.elixir_1_15;
+        # Import a development shell we'll declare in `shell.nix`.
         devShell = import ./shell.nix { inherit pkgs beamPackages; };
 
         # Build the rust package
@@ -36,7 +38,7 @@
 
         my-elixir-app = let
             lib = pkgs.lib;
-            # Import the mix deps which were nix-ified by running
+            # Import the Mix deps into Nix by running
             # mix2nix > nix/deps.nix
             mixNixDeps = import ./deps.nix { inherit lib beamPackages; };
           in beamPackages.mixRelease {
