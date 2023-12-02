@@ -2,7 +2,7 @@
   description = "(a description of your package goes here)";
 
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/nixpkgs-23.11;
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-23.11;
     flake-utils.url = github:numtide/flake-utils;
     rust-overlay.url = github:oxalica/rust-overlay;
   };
