@@ -117,9 +117,10 @@
           There are a few configuration steps you'll need to complete before building: \
           - make sure you have a `mix.lock` file. If not, run `mix deps.get` \
           - `git add *.nix src-tauri` \
-          - open `flake.nix`, replace-all "my-elixir-app" with your app name \
-          - Enter a dev shell by running `nix develop` \
-          - run `mix2nix > deps.nix` ; `git add deps.nix` \
+          - open `flake.nix`, address the FIXMEs, namely: \
+            - update the `appName` var to your Mix app name \
+            - Enter a dev shell by running `nix develop` \
+            - run `mix2nix > deps.nix` ; `git add deps.nix` \
           - Update the `MyApp.Endpoint` config in `config.exs` by adding `server: true` \
 
           Run the build with `nix build` (add `-L` to see the logs).\

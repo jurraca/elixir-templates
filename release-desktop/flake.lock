@@ -43,11 +43,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-77wVnEJk0LdzTtbXu86W3YNn0qai4rWlJRhIVvaXxjg=",
-        "path": "/nix/store/1s8zwkiqskfng46nahblm7m7yhjbc604-source/release-desktop/src-tauri",
+        "path": "./src-tauri",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/1s8zwkiqskfng46nahblm7m7yhjbc604-source/release-desktop/src-tauri",
+        "path": "./src-tauri",
         "type": "path"
       }
     },

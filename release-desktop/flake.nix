@@ -18,10 +18,15 @@
       beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlangR25;
       lib = nixpkgs.lib;
 
+      # FIXME: put Mix app name
+      appName = "";
+
       my-elixir-app = beamPackages.mixRelease {
-        pname = "";
+        pname = appName;
         src = ./.;
-        #mixNixDeps = import ./deps.nix {inherit lib beamPackages;};
+        # FIXME: before building, you must create a deps.nix by running `mix2nix > deps.nix`
+        # then `git add deps.nix`
+        # mixNixDeps = import ./deps.nix {inherit lib beamPackages;};
         version = "0.0.1";
         mixEnv = "dev";
         buildInputs = [ pkgs.tailwindcss pkgs.esbuild ];
@@ -48,13 +53,12 @@
         postInstall = ''
           # Tauri will look for app names + their system triplet, so we must rename the output bin accordingly
           # wrapProgram $out/bin/testproject --set RELEASE_COOKIE="" SECRET_KEY_BASE=$(mix phx.gen.secret)
-          mv $out/bin/testproject $out/bin/testproject-x86_64-unknown-linux-gnu
+          mv $out/bin/${appName} $out/bin/${appName}-x86_64-unknown-linux-gnu
         '';
       };
 
-      desktop = import ./taurize.nix {
-        inherit pkgs system;
-        appName = my-elixir-app.pname ;
+      desktop = import ./nix/taurize.nix {
+        inherit pkgs system appName;
         src = tauri-files;
         binaryPath = my-elixir-app.out + "/bin/" + my-elixir-app.pname;
         host = "localhost";
@@ -64,7 +68,7 @@
       defaultPackage = desktop;
       devShell = self.devShells.${system}.dev;
       devShells = {
-        dev = import ./shell.nix {inherit pkgs;};
+        dev = import ./nix/shell.nix {inherit pkgs;};
       };
     });
 }
