@@ -105,6 +105,39 @@
             - Run `nix build` to build the release
         '';
       };
+
+      release-desktop = {
+        path = ./release-desktop;
+        description = "A template to build desktop applications from Phoenix applications with Tauri.";
+        welcomeText = ''
+          ## Success!
+          You just imported a flake template for building a desktop version of a Phoenix app. \
+          The output package is a desktop binary built via Tauri.\
+
+          There are a few configuration steps you'll need to complete before building: \
+          - make sure you have a `mix.lock` file. If not, run `mix deps.get` \
+          - `git add *.nix src-tauri` \
+          - open `flake.nix`, replace-all "my-elixir-app" with your app name \
+          - Enter a dev shell by running `nix develop` \
+          - run `mix2nix > deps.nix` ; `git add deps.nix` \
+          - Update the `MyApp.Endpoint` config in `config.exs` by adding `server: true` \
+
+          Run the build with `nix build` (add `-L` to see the logs).\
+          This will take a while the first time, but less on subsequent runs.
+          The result binary/ies will be under the `result/bin` in the main source path.
+
+          Before running the binary, your environment must have a few values for a release to run:\
+          `RELEASE_COOKIE`, `SECRET_KEY_BASE`, `PHX_HOST`, and, if you're using a database, `DATABASE_URL`.
+          You can add these to an env file and source it before running the binary. You could also add these to the `shellHook` attribute in `shell.nix` and then run `nix develop`.
+          See the Phoenix release [documentation](https://hexdocs.pm/phoenix/releases.html) for more.
+
+          Remember to add any Nix file to your source tree via `git add`.
+
+          ## Usage
+            - Run `nix develop` to enter a development shell
+            - Run `nix build` to build the desktop binary
+        '';
+      };
     };
 
     defaultTemplate = self.templates.release;
