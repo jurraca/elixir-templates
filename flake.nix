@@ -116,7 +116,7 @@
 
           There are a few configuration steps you'll need to complete before building: \
           - make sure you have a `mix.lock` file. If not, run `mix deps.get` \
-          - `git add *.nix src-tauri` \
+          - `git add *.nix nix src-tauri` \
           - open `flake.nix`, address the FIXMEs, namely: \
             - update the `appName` var to your Mix app name \
             - Enter a dev shell by running `nix develop` \
