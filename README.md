@@ -2,9 +2,15 @@
 
 A set of Nix flake templates for Elixir projects.
 
-## Usage
+These flakes provide a development shell and a build recipe for Mix projects under their various guises: a Mix release, a Mix project that compiles a Rust NIF, a Phoenix project, or even a desktop release of a Phoenix project.
 
-Importing a template with `nix flake init -t` is part the Nix flake CLI, so you must have flakes [enabled](./enable-flakes.md).
+The goal is to give developers a standard template for managing their Mix projects with Nix, and reduce the cost of maintaining build instructions for every platform for your projects.
+
+## Requirements
+
+You'll need [Nix](https://nixos.org/download.html), and you'll need to have flakes [enabled](./enable-flakes.md). You can read more about flakes [here](https://zero-to-nix.com/concepts/flakes).
+
+## Usage
 
 This repo's flake exposes several templates. For example, to import the `shell` template, run:
 ```bash
@@ -22,8 +28,6 @@ If you're unsure what outputs are available after you import the flake, you can 
 ```bash
 nix flake show .
 ```
-
-Feel free to create an issue for questions or comments. PRs welcome!
 
 ## Motivation
 
@@ -45,3 +49,5 @@ As one possible solution, Nix provides:
 - one-command setup (`nix develop`, `nix build`). "just works".
 
 Hence these templates.
+
+Feel free to create an issue for questions or comments. PRs welcome!

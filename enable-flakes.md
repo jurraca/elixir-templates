@@ -6,11 +6,11 @@ If you don't have flakes enabled on your system:
     ```
      --experimental-features 'nix-command flakes'
     ```
-- if you use Nix and want to enable them, add the following to `~/.config/nix/nix.conf` or `/etc/nix/nix.conf`:
+- and you want to enable them, add the following to `~/.config/nix/nix.conf` or `/etc/nix/nix.conf`:
     ```
     experimental-features = nix-command flakes
     ```
-- if you use NixOS and you want to enable them, add the following to your system config:
+- and if you use NixOS and you want to enable them, add the following to your system config:
     ```
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     ```
