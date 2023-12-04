@@ -2,7 +2,7 @@
 
 The `#release-desktop` template gives you boilerplate to build a desktop application from a Phoenix application with [Tauri](https://tauri.app/). I owe this method to Filipe Cabaco's [blog post](https://filipecabaco.com/post/2023-08-29_liveview_desktop_applications) and associated [ex_tauri](https://github.com/filipecabaco/ex_tauri/) Elixir library, which does this from a Mix build script.
 
-There's some setup required (read the welcome text after running `nix flake init -t` as described in [Usage](#Usage)). This template will add the following files and directories to your local project directory:
+There's some setup required (read the welcome text after running `nix flake init -t` as described in [Usage](../README.md)). This template will add the following files and directories to your local project directory:
 - `flake.nix` & `flake.lock`
 - a `nix/` directory to hold Nix expressions to build the Tauri project, as well as `shell.nix`
 - a `src-tauri` directory containing the Tauri cargo project, tailored slightly to our requirements. Usually, you would create this via running `cargo-tauri init` (see Tauri [docs](https://tauri.app/v1/api/cli#init)). We just provide the necessary files upfront for ease of use, as an input to the flake.
