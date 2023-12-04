@@ -29,6 +29,12 @@ If you're unsure what outputs are available after you import the flake, you can 
 nix flake show .
 ```
 
+## Building a desktop release with Tauri
+
+The `#release-desktop` template gives you boilerplate to build a desktop application from a Phoenix application with [Tauri](https://tauri.app/). I owe this method to Filipe Cabaco's [blog post](https://filipecabaco.com/post/2023-08-29_liveview_desktop_applications) and associated [ex_tauri](https://github.com/filipecabaco/ex_tauri/) Elixir library, which does this from a Mix build script.
+
+There's some setup required (read the welcome text after running `nix flake init -t` as described in [Usage](#Usage)). After running `nix build` successfully, the output desktop binary will be under `result/bin/myapp-desktop` in the project directoy.
+
 ## Motivation
 
 The motivation for this project came out of seeing more projects use Elixir with Rust (for example, using NIFs via Rustler). I think this pattern will continue, and, if it's likely that we'll live in a mixed Elixir/Rust world, a few questions came up:
