@@ -16,7 +16,7 @@
           It also sets env vars and local hex and mix folders to keep your development environment explicit and organized.\
           See the `flake.nix` file for details.
 
-          Remember to add any Nix file to your source tree via `git add`.
+          Remember to add any file needed to build the project via `git add`.
 
           ## Usage
             - Run `nix develop` to enter a development shell
@@ -30,8 +30,9 @@
           ## Success!
           You just imported a flake template for an Elixir project built with Mix.
 
-          The output package is a Mix release.\
-          Remember to add any Nix file to your source tree via `git add`.
+          The output package is a Mix release.
+
+          Remember to add any file needed to build the project via `git add`.
 
           ## Usage
             - Run `nix develop` to enter a development shell
@@ -48,7 +49,8 @@
 
           It will *not* provide a runtime with its outputs, only compile the project.\
           If you want to compile an executable (a Mix release), see the `#release` attribute of this flake.
-          Remember to add any Nix file to your source tree via `git add`.
+
+          Remember to add any file needed to build the project via `git add`.
 
           ## Usage
             - Run `nix develop` to enter a development shell
@@ -64,8 +66,9 @@
           You just imported a flake template for an Elixir + Rust project.
 
           The output package is a Mix release.\
-          It includes boilerplate to build a Rust package and configure NIFs via Rustler.\
-          Remember to add any Nix file to your source tree via `git add`.
+          It includes boilerplate to build a Rust package and configure NIFs via Rustler.
+
+          Remember to add any file needed to build the project via `git add`.
 
           ## Usage
             - Run `nix develop` to enter a development shell
@@ -97,8 +100,9 @@
           ## Success!
           You just imported a flake template for a Phoenix project.
 
-          The output package is a Mix release.\
-          Remember to add any Nix file to your source tree via `git add`.
+          The output package is a Mix release.
+
+          Remember to add any file needed to build the project via `git add`.
 
           ## Usage
             - Run `nix develop` to enter a development shell
@@ -112,16 +116,16 @@
         welcomeText = ''
           ## Success!
           You just imported a flake template for building a desktop version of a Phoenix app. \
-          The output package is a desktop binary built via Tauri.\
+          The output package is a desktop binary built via Tauri.
 
           There are a few configuration steps you'll need to complete before building: \
           - make sure you have a `mix.lock` file. If not, run `mix deps.get` \
-          - `git add *.nix nix src-tauri` \
+          - `git add flake* nix src-tauri` \
           - open `flake.nix`, address the FIXMEs, namely: \
             - update the `appName` var to your Mix app name \
             - Enter a dev shell by running `nix develop` \
             - run `mix2nix > deps.nix` ; `git add deps.nix` \
-          - Update the `MyApp.Endpoint` config in `config.exs` by adding `server: true` \
+          - Update the `MyApp.Endpoint` config in `config.exs` by adding `server: true`
 
           Run the build with `nix build` (add `-L` to see the logs).\
           This will take a while the first time, but less on subsequent runs.
@@ -132,7 +136,7 @@
           You can add these to an env file and source it before running the binary. You could also add these to the `shellHook` attribute in `shell.nix` and then run `nix develop`.
           See the Phoenix release [documentation](https://hexdocs.pm/phoenix/releases.html) for more.
 
-          Remember to add any Nix file to your source tree via `git add`.
+          Remember to add any file needed to build the project via `git add`.
 
           ## Usage
             - Run `nix develop` to enter a development shell

@@ -5,7 +5,7 @@
   devURL
 }: let
   tauri-conf-json = builtins.fromJSON (builtins.readFile ./../src-tauri/tauri.conf.json);
-  bundle = tauri-conf-json.tauri.bundle // {"externalBin" = ["${binaryPath}"];} // {"identifier" = "dev.testproject.desktop";};
+  bundle = tauri-conf-json.tauri.bundle // {"externalBin" = ["${binaryPath}"];} // {"identifier" = "dev.${appName}.desktop";};
   allowlist =
     tauri-conf-json.tauri.allowlist
     // {
