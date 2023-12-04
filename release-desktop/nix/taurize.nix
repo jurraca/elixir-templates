@@ -20,7 +20,6 @@ in pkgs.rustPlatform.buildRustPackage rec {
 
   inherit src;
   cargoLock.lockFile = "${src}/Cargo.lock";
-  cargoHash = "sha256-LLPz78T6D9IaCWim7y7zgTTcVQRz8XO9s+H5qDqeWko=";
 
   buildInputs = with pkgs; [
     cargo-tauri
