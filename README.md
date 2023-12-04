@@ -17,7 +17,9 @@ This repo's flake exposes several templates. For example, to import the `shell` 
 nix flake init -t github:jurraca/elixir-templates#shell
 ```
 
-This will import the `flake.nix` template located at `shell/flake.nix` to your current path. You can specify which one to import with the `#` at the end of the template repo location, as shown above. That's the syntax to resolve output attribute paths of a flake in Nix.
+This will import the `flake.nix` template located at `shell/flake.nix` to your current path, i.e. create `flake.nix`, `flake.lock`, and `shell.nix` files.
+
+You can specify which template to import with the `#` at the end of the template repo location, as shown above. That's the syntax to resolve output attribute paths of a flake in Nix.
 
 To see what templates are available, run:
 ```
@@ -33,7 +35,12 @@ nix flake show .
 
 The `#release-desktop` template gives you boilerplate to build a desktop application from a Phoenix application with [Tauri](https://tauri.app/). I owe this method to Filipe Cabaco's [blog post](https://filipecabaco.com/post/2023-08-29_liveview_desktop_applications) and associated [ex_tauri](https://github.com/filipecabaco/ex_tauri/) Elixir library, which does this from a Mix build script.
 
-There's some setup required (read the welcome text after running `nix flake init -t` as described in [Usage](#Usage)). After running `nix build` successfully, the output desktop binary will be under `result/bin/myapp-desktop` in the project directoy.
+There's some setup required (read the welcome text after running `nix flake init -t` as described in [Usage](#Usage)). This template will add the following files and directories to your local project directory:
+- `flake.nix` & `flake.lock`
+- a `nix/` directory to hold Nix expressions to build the Tauri project, as well as `shell.nix`
+- a `src-tauri` directory containing the Tauri cargo project, tailored slightly to our requirements. Usually, you would create this via running `cargo-tauri init` (see Tauri [docs](https://tauri.app/v1/api/cli#init)). We just provide the necessary files upfront for ease of use, as an input to the flake.
+
+After running `nix build` successfully, the output desktop binary will be under `result/bin/myapp-desktop` in the project directoy.
 
 ## Motivation
 
