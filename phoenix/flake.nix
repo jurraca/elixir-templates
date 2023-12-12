@@ -58,7 +58,7 @@
       in {
         defaultPackage = my-phx-app;
 
-        devShell = self.devShells.${system}.dev;
+        devShells.default = self.devShells.${system}.dev;
         devShells = {
           dev = import ./shell.nix {
             inherit pkgs beamPackages;

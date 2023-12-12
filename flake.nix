@@ -151,7 +151,7 @@
       };
     };
 
-    defaultTemplate = self.templates.release;
+    templates.default = self.templates.release;
 
   };
 }

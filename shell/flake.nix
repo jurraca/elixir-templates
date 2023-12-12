@@ -51,7 +51,7 @@
       in
       # output attributes
       {
-        defaultPackage = pkgs.mkShell {
+        devShells.default = pkgs.mkShell {
           inherit
             buildInputs
             shellHook;

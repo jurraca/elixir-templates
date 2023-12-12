@@ -38,8 +38,8 @@
           };
       in
       {
-        inherit devShell;
-        defaultPackage = my-elixir-app;
+        devShells.default = devShell;
+        packages.default = my-elixir-app;
       }
     );
 }

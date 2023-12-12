@@ -65,8 +65,8 @@
         port = "4000";
       };
     in rec {
-      defaultPackage = desktop;
-      devShell = self.devShells.${system}.dev;
+      packages.default = desktop;
+      devShells.default = self.devShells.${system}.dev;
       devShells = {
         dev = import ./nix/shell.nix {inherit pkgs;};
       };
