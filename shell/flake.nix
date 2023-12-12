@@ -26,13 +26,11 @@
           let
             inherit beamPackages;
             elixir = beamPackages.elixir_1_15;
-            elixir_ls = beamPackages.elixir-ls.override { inherit elixir; };
             hex = beamPackages.hex;
             mix2nix = pkgs.mix2nix;
           in
           [
             elixir
-            elixir_ls
             hex
             mix2nix
           ] ++ opts;

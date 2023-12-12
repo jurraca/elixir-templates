@@ -14,7 +14,6 @@
     postgresql_15
     esbuild
     tailwindcss
-    elixir-ls
   ];
 
   # Add basePackages + optional system packages per system

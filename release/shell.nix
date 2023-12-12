@@ -9,7 +9,6 @@
     beamPackages.hex
     rebar3
     mix2nix
-    elixir-ls
   # Phoenix stuff
   # postgresql_15
   # esbuild

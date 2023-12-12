@@ -52,7 +52,6 @@
           If you want to compile an executable (a Mix release), see the `#release` attribute of this flake.
 
           Address the FIXME's in `flake.nix` first! \
-
           Remember to add any file needed to build the project via `git add`.
 
           ## Usage
