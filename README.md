@@ -1,10 +1,12 @@
-## README
+## Elixir Templates for Nix
 
 A set of Nix flake templates for Elixir projects.
 
 These flakes provide a development shell and a build recipe for Mix projects under their various guises: a Mix release, a Mix project that compiles a Rust NIF, a Phoenix project, or even a desktop release of a Phoenix project.
 
 The goal is to give developers a standard template for managing their Mix projects with Nix, and reduce the cost of maintaining build instructions for every platform for your projects.
+
+**Status**: Beta. Only tested on `x86_64-linux`. Shells probably work for all architectures.
 
 ## Requirements
 
@@ -30,6 +32,24 @@ If you're unsure what outputs are available after you import the flake, you can 
 ```bash
 nix flake show .
 ```
+
+#### Configuration
+
+Once you've added a flake to your project, you'll want to configure a few things. The `flake.nix` has FIXMEs which you should address before the package can be built. The main one involves turning your Mix deps into Nix deps via the following commands:
+```
+# Enter a dev shell
+nix develop
+# nixify the deps
+mix2nix > deps.nix
+# make git aware of the new file
+git add deps.nix
+```
+
+The rest is probably optional:
+- replace-all the placeholder app name (`my-elixir-app`, `my-rust-pkg`)
+- update the `version` attribute to your app version
+- if attempting to build a Rust package, you'll need to fetch the cargo hash and update it
+- specify the Erlang/OTP version or Elixir version you want to use (if not the nixos 23.11 defaults: OTP `25.3.2.7` and Elixir `1.15.7`)
 
 ## Motivation
 

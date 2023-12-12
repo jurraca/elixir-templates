@@ -32,7 +32,7 @@
           beamPackages.mixRelease {
             pname = "my-phx-app";
             # Elixir app source path
-            src = ./testproj;
+            src = ./.;
             version = "0.1.0";
             # FIXME: mixNixDeps was specified in the FIXME above. Uncomment the next line.
             # inherit mixNixDeps;
