@@ -25,21 +25,21 @@
 
         my-phx-app = let
           lib = pkgs.lib;
-          # Import the Mix deps into Nix by running
+          # FIXME: Import the Mix deps into Nix by running
           # mix2nix > nix/deps.nix
-          mixNixDeps = import ./testproj/deps.nix {inherit lib beamPackages;};
+          # mixNixDeps = import ./deps.nix {inherit lib beamPackages;};
         in
           beamPackages.mixRelease {
             pname = "my-phx-app";
             # Elixir app source path
             src = ./testproj;
             version = "0.1.0";
-            # mixRelease takes a mixNixDeps arg to specify the dependencies
-            # which is a map (an attribute set) of {"package_name" = nix-derivation-path}
-            inherit mixNixDeps;
+            # FIXME: mixNixDeps was specified in the FIXME above. Uncomment the next line.
+            # inherit mixNixDeps;
+
             # Add inputs to a release build. We need elixir (it's implied but you can specify a version here)
             # add esbuild and tailwindcss
-            buildInputs = [elixir pkgs.esbuild pkgs.tailwindcss];
+            buildInputs = [ elixir pkgs.esbuild pkgs.tailwindcss ];
 
             # Explicitly declare tailwind and esbuild binary paths (don't let Mix fetch them)
             preConfigure = ''

@@ -32,6 +32,7 @@
 
           The output package is a Mix release.
 
+          Address the FIXME's in `flake.nix` first! \
           Remember to add any file needed to build the project via `git add`.
 
           ## Usage
@@ -49,6 +50,8 @@
 
           It will *not* provide a runtime with its outputs, only compile the project.\
           If you want to compile an executable (a Mix release), see the `#release` attribute of this flake.
+
+          Address the FIXME's in `flake.nix` first! \
 
           Remember to add any file needed to build the project via `git add`.
 
@@ -68,6 +71,7 @@
           The output package is a Mix release.\
           It includes boilerplate to build a Rust package and configure NIFs via Rustler.
 
+          Address the FIXME's in `flake.nix` first! \
           Remember to add any file needed to build the project via `git add`.
 
           ## Usage
@@ -85,6 +89,8 @@
 
           It will *not* provide a runtime with its outputs, only compile the project.\
           If you want to compile an executable (a Mix release), see the `#release-rust` attribute of this flake.
+
+          Address the FIXME's in `flake.nix` first! \
           Remember to add any Nix file to your source tree via `git add`.
 
           ## Usage
@@ -102,6 +108,7 @@
 
           The output package is a Mix release.
 
+          Address the FIXME's in `flake.nix` first! \
           Remember to add any file needed to build the project via `git add`.
 
           ## Usage

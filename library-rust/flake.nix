@@ -23,9 +23,9 @@
 
         # Build the rust package
         my-rust-pkg = pkgs.rustPlatform.buildRustPackage {
-            pname = "";
-            version = "";
-            # Where the Rust code lives. For NIFs, this is usually native/my-rust-src
+            pname = "my-elixir-app";
+            version = "0.0.1";
+            # FIXME: Where the Rust code lives. For NIFs, this is usually native/my-rust-src
             src = "";
             # A hash that ensures we're getting the right src.
             # Get this hash by running `nix hash path native/my-rust-src`
@@ -35,9 +35,8 @@
 
         my-elixir-app = let
             lib = pkgs.lib;
-            # Import the Mix deps into Nix by running
-            # mix2nix > deps.nix
-            mixNixDeps = import ./deps.nix { inherit lib beamPackages; };
+            # FIXME: import the Mix deps into Nix by running `mix2nix > deps.nix`
+            # mixNixDeps = import ./deps.nix { inherit lib beamPackages; };
           in beamPackages.buildMix {
             name = "";
             # Elixir app source path
@@ -45,8 +44,8 @@
             version = "0.1.0";
             # Add inputs to the build if you need to
             buildInputs = [ elixir ];
-            # Declare the nix paths of the mix dependencies
-            beamDeps = builtins.attrValues mixNixDeps;
+            #  FIXME: declare the nix paths of the mix dependencies from the mixNixDeps attr above.
+            # beamDeps = builtins.attrValues mixNixDeps;
 
             # And now, tell Rustler about your Rust binary.
             # Before we configure and build the project,

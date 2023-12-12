@@ -38,17 +38,16 @@
 
         my-elixir-app = let
             lib = pkgs.lib;
-            # Import the Mix deps into Nix by running
-            # mix2nix > nix/deps.nix
-            mixNixDeps = import ./deps.nix { inherit lib beamPackages; };
+            # FIXME: import the Mix deps into Nix by running `mix2nix > deps.nix`
+            # mixNixDeps = import ./deps.nix { inherit lib beamPackages; };
           in beamPackages.mixRelease {
             name = "my-elixir-app";
             # Elixir app source path
             src = ./.;
             version = "0.1.0";
-            # mixRelease takes a mixNixDeps arg to specify the dependencies
-            # which is a map (an attribute set) of {"package_name" = nix-derivation-path}
-            inherit mixNixDeps;
+            # FIXME: mixNixDeps was specified in the FIXME above. Uncomment the next line.
+            # inherit mixNixDeps;
+
             # Uncomment the next line to add inputs to the build if you need to
             # We specify elixir 1_14 (declared above)
             buildInputs = [ elixir ];
