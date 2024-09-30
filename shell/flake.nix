@@ -2,7 +2,7 @@
   description = "An Elixir development shell.";
 
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-23.11;
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-24.05;
     flake-utils.url = github:numtide/flake-utils;
   };
 
@@ -13,7 +13,7 @@
         # Declare pkgs for the specific target system we're building for, with the rust overlay.
         pkgs = import nixpkgs { inherit system; };
         # Declare BEAM version we want to use. If not, defaults to the latest on this channel.
-        beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlang;
+        beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlang_27;
         # Optional build inputs depending on system.
         opts =
          with pkgs; lib.optional stdenv.isLinux inotify-tools ++
@@ -25,7 +25,7 @@
         buildInputs =
           let
             inherit beamPackages;
-            elixir = beamPackages.elixir_1_15;
+            elixir = beamPackages.elixir_1_16;
             hex = beamPackages.hex;
             mix2nix = pkgs.mix2nix;
           in

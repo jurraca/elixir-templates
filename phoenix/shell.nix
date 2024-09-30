@@ -46,7 +46,6 @@
     export POOL_SIZE=15
     export DB_URL="postgresql://postgres:postgres@localhost:5432/${dbName}"
     export PORT=4000
-    export MIX_ENV=${mixEnv}
   '';
 in
   pkgs.mkShell {

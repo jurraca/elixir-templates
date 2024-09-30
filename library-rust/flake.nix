@@ -2,7 +2,7 @@
   description = "(a description of your package goes here)";
 
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-23.11;
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-24.05;
     flake-utils.url = github:numtide/flake-utils;
     rust-overlay.url = github:oxalica/rust-overlay;
   };
@@ -15,7 +15,7 @@
         # declare pkgs for the specific target system we're building for, with the rust overlay.
         pkgs = import nixpkgs { inherit system overlays; };
         # declare OTP version via `erlang` attribute. If not, defaults to the latest on this channel.
-        beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlang;
+        beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlang_27;
         # declare the Elixir version you want to use. If not, defaults to the latest on this channel.
         elixir = beamPackages.elixir;
         # import a development shell we'll declare in `shell.nix`.

@@ -2,7 +2,7 @@
   description = "(a description of your package goes here)";
 
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-23.11;
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-24.05;
     flake-utils.url = github:numtide/flake-utils;
   };
 
@@ -13,9 +13,9 @@
         # Declare pkgs for the specific target system we're building for.
         pkgs = import nixpkgs { inherit system ; };
         # Declare BEAM version we want to use. If not, defaults to the latest on this channel.
-        beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlang;
+        beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlang_27;
         # Declare the Elixir version you want to use. If not, defaults to the latest on this channel.
-        elixir = beamPackages.elixir_1_15;
+        elixir = beamPackages.elixir_1_16;
         # Import a development shell we'll declare in `shell.nix`.
         devShell = import ./shell.nix { inherit pkgs beamPackages; };
 
