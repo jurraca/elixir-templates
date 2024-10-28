@@ -4,7 +4,6 @@
   outputs = { self }: {
 
     templates = {
-
       shell = {
         path = ./shell;
         description = "A simple flake which exposes a development shell.";
