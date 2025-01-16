@@ -1,9 +1,7 @@
 {
   description = "An Elixir development shell.";
 
-  inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-24.11;
-  };
+  inputs.nixpkgs.url = github:NixOS/nixpkgs/nixos-24.11;
 
   outputs = {
     self,
@@ -20,7 +18,7 @@
       (final: prev: let
         beamPkgs = final.beam.packagesWith final.beam.interpreters.erlang_27;
       in rec {
-        elixir = beamPkgs.elixir_1_16;
+        elixir = beamPkgs.elixir_1_18;
         hex = beamPkgs.hex;
       })
     ];

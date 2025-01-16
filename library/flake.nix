@@ -10,13 +10,11 @@
     # build for each default system of flake-utils: ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"]
     flake-utils.lib.eachDefaultSystem (system:
       let
-        overlays = [ (import rust-overlay) ];
-        # declare pkgs for the specific target system we're building for, with the rust overlay.
-        pkgs = import nixpkgs { inherit system overlays; };
+        pkgs = import nixpkgs { inherit system ; };
         # declare OTP version via `erlang` attribute. If not, defaults to the latest on this channel.
         beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlang_27;
         # declare the Elixir version you want to use. If not, defaults to the latest on this channel.
-        elixir = beamPackages.elixir;
+        elixir = beamPackages.elixir_1_18;
         # import a development shell we'll declare in `shell.nix`.
         devShell = import ./shell.nix { inherit pkgs beamPackages; };
 
