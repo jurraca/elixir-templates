@@ -6,7 +6,7 @@
     flake-utils.url = github:numtide/flake-utils;
   };
 
-  outputs = { self, nixpkgs, flake-utils, rust-overlay }:
+  outputs = { self, nixpkgs, flake-utils }:
     # build for each default system of flake-utils: ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"]
     flake-utils.lib.eachDefaultSystem (system:
       let
