@@ -17,7 +17,7 @@
         # declare OTP version via `erlang` attribute. If not, defaults to the latest on this channel.
         beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlang_27;
         # declare the Elixir version you want to use. If not, defaults to the latest on this channel.
-        elixir = beamPackages.elixir;
+        elixir = beamPackages.elixir_1_18;
         # import a development shell we'll declare in `shell.nix`.
         devShell = import ./shell.nix { inherit pkgs beamPackages; };
 
@@ -30,7 +30,7 @@
             # A hash that ensures we're getting the right src.
             # Get this hash by running `nix hash path native/my-rust-src`
             # Nix will attempt to verify this when building and tell you the hash it got vs what it expected
-            cargoSha256 = "sha256-M9Uql8ekY/ipraRqdNyUzzbs+j8g0a2DjuLldWP3cWs=";
+            cargoHash = "sha256-M9Uql8ekY/ipraRqdNyUzzbs+j8g0a2DjuLldWP3cWs=";
         };
 
         my-elixir-app = let

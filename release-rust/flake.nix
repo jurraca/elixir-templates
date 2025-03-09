@@ -19,7 +19,7 @@
         # Declare BEAM version we want to use. If not, defaults to the latest on this channel.
         beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlang_27;
         # Declare the Elixir version you want to use. If not, defaults to the latest on this channel.
-        elixir = beamPackages.elixir_1_16;
+        elixir = beamPackages.elixir_1_18;
         # Import a development shell we'll declare in `shell.nix`.
         devShell = import ./shell.nix { inherit pkgs beamPackages; };
 
@@ -33,7 +33,7 @@
             # A hash that ensures we're getting the right src.
             # Get this hash by running `nix hash path native/my-rust-src`
             # Nix will attempt to verify this when building and tell you the hash it got vs what it expected
-            cargoSha256 = "sha256-M9Uql8ekY/ipraRqdNyUzzbs+j8g0a2DjuLldWP3cWs=";
+            cargoHash = "sha256-M9Uql8ekY/ipraRqdNyUzzbs+j8g0a2DjuLldWP3cWs=";
         };
 
         my-elixir-app = let
@@ -41,7 +41,7 @@
             # FIXME: import the Mix deps into Nix by running `mix2nix > deps.nix`
             # mixNixDeps = import ./deps.nix { inherit lib beamPackages; };
           in beamPackages.mixRelease {
-            name = "my-elixir-app";
+            pname = "my-elixir-app";
             # Elixir app source path
             src = ./.;
             version = "0.1.0";
