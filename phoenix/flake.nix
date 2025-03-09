@@ -19,7 +19,7 @@
         # Declare BEAM version we want to use. If not, defaults to the latest on this channel.
         beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlang_27;
         # Declare the Elixir version you want to use. If not, defaults to the latest on this channel.
-        elixir = beamPackages.elixir;
+        elixir = beamPackages.elixir_1_18;
         # Import a development shell we'll declare in `shell.nix`.
         devShell = import ./shell.nix {inherit pkgs beamPackages;};
 
@@ -37,7 +37,6 @@
             # FIXME: mixNixDeps was specified in the FIXME above. Uncomment the next line.
             # inherit mixNixDeps;
 
-            # Add inputs to a release build. We need elixir (it's implied but you can specify a version here)
             # add esbuild and tailwindcss
             buildInputs = [ elixir pkgs.esbuild pkgs.tailwindcss ];
 
