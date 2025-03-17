@@ -7,31 +7,34 @@
     self,
     nixpkgs,
   }: let
-    supportedSystems = [
+    overlay = prev: final: rec {
+      beamPackages = prev.beam.packagesWith prev.beam.interpreters.erlang_27;
+      elixir = beamPackages.elixir_1_18;
+      erlang = prev.erlang_27;
+      hex = beamPackages.hex;
+      final.mix2nix = prev.mix2nix.overrideAttrs {
+        nativeBuildInputs = [final.elixir];
+        buildInputs = [final.erlang];
+      };
+    };
+
+    forAllSystems = nixpkgs.lib.genAttrs [
       "x86_64-linux"
       "aarch64-linux"
       "x86_64-darwin"
       "aarch64-darwin"
     ];
 
-    overlays = [
-      (final: prev: let
-        beamPkgs = final.beam.packagesWith final.beam.interpreters.erlang_27;
-      in rec {
-        elixir = beamPkgs.elixir_1_18;
-        hex = beamPkgs.hex;
-      })
-    ];
-
-    forAllSystems = function:
-      nixpkgs.lib.genAttrs supportedSystems
-      (system:
-        function {
-          pkgs = import nixpkgs {inherit overlays system;};
-        });
+    nixpkgsFor = system:
+      import nixpkgs {
+        inherit system;
+        overlays = [overlay];
+      };
   in {
     devShells = forAllSystems (
-      {pkgs}: {
+      system: let
+        pkgs = nixpkgsFor system;
+      in {
         default = let
           opts = with pkgs;
             lib.optional stdenv.isLinux inotify-tools
