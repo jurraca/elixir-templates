@@ -2,23 +2,20 @@
   pkgs,
   dbName,
   mixEnv,
-  beamPackages
+  beamPackages,
 }: let
   # define packages to install
   basePackages = with pkgs; [
-    git
-    beamPackages.elixir
-    beamPackages.hex
-    rebar3
+    elixir
+    hex
     mix2nix
-    postgresql_15
+    postgresql
     esbuild
     tailwindcss
   ];
 
   # Add basePackages + optional system packages per system
-  inputs =
-   with pkgs;
+  inputs = with pkgs;
     basePackages
     ++ lib.optionals stdenv.isLinux [inotify-tools]
     ++ lib.optionals stdenv.isDarwin

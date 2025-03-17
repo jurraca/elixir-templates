@@ -3,79 +3,85 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    utils.url = "github:numtide/flake-utils";
   };
 
   outputs = {
     self,
     nixpkgs,
-    utils,
-  }:
-  # build for each default system of flake-utils: ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"]
-    utils.lib.eachDefaultSystem (
-      system: let
-        # Declare pkgs for the specific target system we're building for.
-        pkgs = import nixpkgs {inherit system;};
-        # Declare BEAM version we want to use. If not, defaults to the latest on this channel.
-        beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlang_27;
-        # Declare the Elixir version you want to use. If not, defaults to the latest on this channel.
-        elixir = beamPackages.elixir_1_18;
-        # Import a development shell we'll declare in `shell.nix`.
-        devShell = import ./shell.nix {inherit pkgs beamPackages;};
+  }: let
+    overlay = prev: final: rec {
+      beamPackages = prev.beam.packagesWith prev.beam.interpreters.erlang_27;
+      elixir = beamPackages.elixir_1_18;
+      erlang = prev.erlang_27;
+      hex = beamPackages.hex;
+      final.mix2nix = prev.mix2nix.overrideAttrs {
+        nativeBuildInputs = [final.elixir];
+        buildInputs = [final.erlang];
+      };
+    };
 
-        my-phx-app = let
-          lib = pkgs.lib;
-          # FIXME: Import the Mix deps into Nix by running
-          # mix2nix > nix/deps.nix
-          # mixNixDeps = import ./deps.nix {inherit lib beamPackages;};
-        in
-          beamPackages.mixRelease {
-            pname = "my-phx-app";
-            # Elixir app source path
-            src = ./.;
-            version = "0.1.0";
-            # FIXME: mixNixDeps was specified in the FIXME above. Uncomment the next line.
-            # inherit mixNixDeps;
+    forAllSystems = nixpkgs.lib.genAttrs [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
 
-            # add esbuild and tailwindcss
-            buildInputs = [ elixir pkgs.esbuild pkgs.tailwindcss ];
+    nixpkgsFor = system:
+      import nixpkgs {
+        inherit system;
+        overlays = [overlay];
+      };
+  in {
+    packages = forAllSystems (system: let
+      pkgs = nixpkgsFor system;
+      # FIXME: import the Mix deps into Nix by running `mix2nix > deps.nix` from a dev shell
+      # mixNixDeps = import ./deps.nix {
+      #  lib = pkgs.lib;
+      #  beamPackages = pkgs.beamPackages;
+      #};
+    in {
+      default = pkgs.beamPackages.mixRelease {
+        pname = "my-phx-app";
+        # Elixir app source path
+        src = ./.;
+        version = "0.1.0";
+        # FIXME: mixNixDeps was specified in the FIXME above. Uncomment the next line.
+        # inherit mixNixDeps;
 
-            # Explicitly declare tailwind and esbuild binary paths (don't let Mix fetch them)
-            preConfigure = ''
-              substituteInPlace config/config.exs \
-                --replace "config :tailwind," "config :tailwind, path: \"${pkgs.tailwindcss}/bin/tailwindcss\","\
-                --replace "config :esbuild," "config :esbuild, path: \"${pkgs.esbuild}/bin/esbuild\", "
+        # add esbuild and tailwindcss
+        buildInputs = [pkgs.elixir pkgs.esbuild pkgs.tailwindcss];
 
-            '';
+        # Explicitly declare tailwind and esbuild binary paths (don't let Mix fetch them)
+        preConfigure = ''
+          substituteInPlace config/config.exs \
+            --replace "config :tailwind," "config :tailwind, path: \"${pkgs.tailwindcss}/bin/tailwindcss\","\
+            --replace "config :esbuild," "config :esbuild, path: \"${pkgs.esbuild}/bin/esbuild\", "
+        '';
 
-            # Deploy assets before creating release
-            preInstall = ''
-             # https://github.com/phoenixframework/phoenix/issues/2690
-              mix do deps.loadpaths --no-deps-check, assets.deploy
-            '';
-          };
-      in {
-        defaultPackage = my-phx-app;
-
-        devShells.default = self.devShells.${system}.dev;
-        devShells = {
-          dev = import ./shell.nix {
-            inherit pkgs beamPackages;
-            dbName = "db_dev";
-            mixEnv = "dev";
-          };
-          test = import ./shell.nix {
-            inherit pkgs beamPackages;
-            dbName = "db_test";
-            mixEnv = "test";
-          };
-          prod = import ./shell.nix {
-            inherit pkgs beamPackages;
-            dbName = "db_prod";
-            mixEnv = "prod";
-          };
-        };
-        apps.my-phx-project = utils.lib.mkApp {drv = my-phx-app;};
-      }
-    );
+        # Deploy assets before creating release
+        preInstall = ''
+          # https://github.com/phoenixframework/phoenix/issues/2690
+           mix do deps.loadpaths --no-deps-check, assets.deploy
+        '';
+      };
+    });
+    devShells = forAllSystems (system: let
+      pkgs = nixpkgsFor system;
+    in {
+      default = self.devShells.${system}.dev;
+      dev = pkgs.callPackage ./shell.nix {
+        dbName = "db_dev";
+        mixEnv = "dev";
+      };
+      test = pkgs.callPackage ./shell.nix {
+        dbName = "db_test";
+        mixEnv = "test";
+      };
+      prod = pkgs.callPackage ./shell.nix {
+        dbName = "db_prod";
+        mixEnv = "prod";
+      };
+    });
+  };
 }
