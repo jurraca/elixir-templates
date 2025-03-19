@@ -1,4 +1,4 @@
-{ pkgs, beamPackages }:
+{ pkgs }:
 
 with pkgs; let
 
@@ -10,15 +10,8 @@ with pkgs; let
     ]);
 
   buildInputs =
-    let
-      inherit beamPackages;
-      elixir = beamPackages.elixir;
-      elixir_ls = beamPackages.elixir-ls.override { inherit elixir; };
-      hex = beamPackages.hex;
-    in
     [
       elixir
-      elixir_ls
       mix2nix
       hex
       rust-bin.stable.latest.minimal
