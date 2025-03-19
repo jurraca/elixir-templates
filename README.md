@@ -49,7 +49,7 @@ The rest is probably optional:
 - replace-all the placeholder app name (`my-elixir-app`, `my-rust-pkg`)
 - update the `version` attribute to your app version
 - if attempting to build a Rust package, you'll need to fetch the cargo hash and update it
-- specify the Erlang/OTP version or Elixir version you want to use (if not the nixos 23.11 defaults: OTP `25.3.2.7` and Elixir `1.15.7`)
+- specify the Erlang/OTP version or Elixir version you want to use (if not the nixos 24.11 defaults: OTP `27` and Elixir `1.18.0`)
 
 ## Motivation
 
