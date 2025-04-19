@@ -15,7 +15,13 @@
   }:
     utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
-      beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlang_27;
+      # https://github.com/erlang/otp/security/advisories/GHSA-37cp-fgq5-7wc2
+      erlang = prev.beam.interpreters.erlang_27.override {
+        version = "27.3.3";
+        sha256 = "sha256-OTCCfVeJADxKlmgk8rRE3uzY8Y9qYwY/ubiopWG/0ao=";
+      };
+      beamPackages = prev.beam.packagesWith erlang;
+
       lib = nixpkgs.lib;
 
       # FIXME: put Mix app name

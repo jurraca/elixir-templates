@@ -7,9 +7,12 @@
 
   outputs = { self, nixpkgs }: let
     overlay = prev: final: rec {
-      beamPackages = prev.beam.packagesWith prev.beam.interpreters.erlang_27;
+      erlang = prev.beam.interpreters.erlang_27.override {
+        version = "27.3.3";
+        sha256 = "sha256-OTCCfVeJADxKlmgk8rRE3uzY8Y9qYwY/ubiopWG/0ao=";
+      };
+      beamPackages = prev.beam.packagesWith erlang;
       elixir = beamPackages.elixir_1_18;
-      erlang = prev.erlang_27;
       hex = beamPackages.hex;
       final.mix2nix = prev.mix2nix.overrideAttrs {
         nativeBuildInputs = [ final.elixir ];
