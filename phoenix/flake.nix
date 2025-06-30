@@ -1,9 +1,7 @@
 {
   description = "A flake template for Phoenix 1.7 projects.";
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-  };
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
   outputs = {
     self,

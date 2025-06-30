@@ -2,7 +2,7 @@
   description = "Packaging a Mix release as a Tauri desktop app.";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     utils.url = "github:numtide/flake-utils";
     tauri-files = { url = "./src-tauri"; flake = false;};
   };
