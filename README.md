@@ -7,9 +7,9 @@ These flakes provide a development shell and a build recipe for Mix projects und
 The goal is to give developers a standard template for managing their Mix projects with Nix, and reduce the cost of maintaining build instructions for every platform for your projects.
 
 Currently defaults to: 
-- Nixpkgs 25.11
-- OTP 28
-- Elixir 1.19
+- Nixpkgs 26.05
+- OTP 29
+- Elixir 1.20
 
 **Status**: Beta. Only tested on `x86_64-linux`. Shells probably work for all architectures.
 

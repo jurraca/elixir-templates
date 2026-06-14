@@ -5,8 +5,8 @@
 
   outputs = { self, nixpkgs }: let
     overlay = prev: final: rec {
-      beamPackages = prev.beamMinimal28Packages;
-      elixir = beamPackages.elixir_1_19;
+      beamPackages = prev.beamMinimal29Packages;
+      elixir = beamPackages.elixir_1_20;
       erlang = beamPackages.erlang;
       hex = beamPackages.hex;
       final.mix2nix = prev.mix2nix.overrideAttrs {

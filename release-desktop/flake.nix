@@ -15,7 +15,7 @@
   }:
     utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
-      beamPackages = pkgs.beamMinimal28Packages;
+      beamPackages = pkgs.beamMinimal29Packages;
       lib = nixpkgs.lib;
 
       # FIXME: put Mix app name
