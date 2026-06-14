@@ -1,7 +1,7 @@
 {
   description = "(a description of your package goes here)";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
   outputs = { self, nixpkgs }: let
     overlay = prev: final: rec {
