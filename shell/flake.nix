@@ -12,7 +12,7 @@
       elixir = beamPackages.elixir_1_20;
       erlang = beamPackages.erlang;
       hex = beamPackages.hex;
-      final.mix2nix = prev.mix2nix.overrideAttrs {
+      mix2nix = prev.mix2nix.overrideAttrs {
         nativeBuildInputs = [final.elixir];
         buildInputs = [final.erlang];
       };
