@@ -4,7 +4,7 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
   outputs = { self, nixpkgs }: let
-    overlay = prev: final: rec {
+    overlay = final: prev: rec {
       beamPackages = prev.beamMinimal29Packages;
       elixir = beamPackages.elixir_1_20;
       erlang = beamPackages.erlang;
